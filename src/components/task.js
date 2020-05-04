@@ -1,12 +1,13 @@
 import {MONTH_NAMES} from "../consts";
-import {formatTime} from "../utils.js";
+import {formatTime, createElement} from "../utils";
 
 
-export const createTaskTemplate = (task) => {
+const createTaskTemplate = (task) => {
   const {color, description, dueDate, repeatingDays, isArchive, isFavorite} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isDateShowing = !!dueDate;
+
   const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
@@ -59,3 +60,25 @@ export const createTaskTemplate = (task) => {
     </div>
   </article>`;
 };
+
+export default class Task {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
