@@ -5,7 +5,7 @@ import FilterComponent from "./components/filter";
 import SiteMenuComponent from "./components/menu";
 import {generateTasks} from "./mocks/tasks";
 import {generateFilters} from "./mocks/filter";
-import {render, RenderPosition, replace, remove} from "./utils/render";
+import {render, RenderPosition} from "./utils/render";
 
 
 const TASK_COUNT = 25;
