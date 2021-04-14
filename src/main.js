@@ -4,15 +4,14 @@ import LoadMoreButtonComponent from "./components/load-button.js";
 import TaskEditComponent from "./components/task-edit.js";
 import TaskComponent from "./components/task.js";
 import TasksComponent from "./components/tasks.js";
-// import NoTasksComponent from "./components/no-tasks.js";
+import NoTasksComponent from "./components/no-task.js";
 import SiteMenuComponent from "./components/menu.js";
 import SortComponent from "./components/sort.js";
 import {generateTasks} from "./mocks/tasks.js";
 import {generateFilters} from "./mocks/filter.js";
 import {render, RenderPosition} from "./utils.js";
 
-
-const TASK_COUNT = 25;
+const TASK_COUNT = 0;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
@@ -53,9 +52,15 @@ const renderTask = (taskListElement, task) => {
 };
 
 const renderBoard = (boardComponent, tasks) => {
+  if (tasks.length === 0 || tasks.every((task) => task.isArchive)) {
+    render(boardComponent.getElement(), new NoTasksComponent().getElement(), RenderPosition.BEFOREEND)
+    return;
+  }
 
   render(boardComponent.getElement(), new SortComponent().getElement(), RenderPosition.BEFOREEND);
   render(boardComponent.getElement(), new TasksComponent().getElement(), RenderPosition.BEFOREEND);
+
+
 
   const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
 
