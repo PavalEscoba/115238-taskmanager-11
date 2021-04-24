@@ -79,6 +79,9 @@ export default class BoardController {
   }
 
   render(tasks) {
+    let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
+    const taskListElement = this._tasksComponent.getElement();
+
     const renderLoadMoreButton = () => {
       if (showingTasksCount >= tasks.length) {
         return;
@@ -111,22 +114,22 @@ export default class BoardController {
     render(container, this._sortComponent, RenderPosition.BEFOREEND);
     render(container, this._tasksComponent, RenderPosition.BEFOREEND);
 
-    const taskListElement = this._tasksComponent.getElement();
 
-    let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
-    renderTasks(taskListElement, tasks.slice(0, showingTasksCount));
-    renderLoadMoreButton();
 
-    this._sortComponent.setSortTypeChangeHandler((sortType) => {
-      showingTasksCount = SHOWING_TASKS_COUNT_BY_BUTTON;
 
-      const sortedTasks = getSortedTasks(tasks, sortType, 0, showingTasksCount);
+    // renderTasks(taskListElement, tasks.slice(0, showingTasksCount));
+    // renderLoadMoreButton();
 
-      taskListElement.innerHTML = ``;
+    // this._sortComponent.setSortTypeChangeHandler((sortType) => {
+    //   showingTasksCount = SHOWING_TASKS_COUNT_BY_BUTTON;
 
-      renderTasks(taskListElement, sortedTasks);
-      renderLoadMoreButton();
-    });
+    //   const sortedTasks = getSortedTasks(tasks, sortType, 0, showingTasksCount);
+
+    //   taskListElement.innerHTML = ``;
+
+    //   renderTasks(taskListElement, sortedTasks);
+    //   renderLoadMoreButton();
+    // });
   }
 }
